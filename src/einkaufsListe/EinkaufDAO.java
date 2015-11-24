@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import einstellungen.DAO;
+import main.DAO;
 
 
-public class EinkaufDAO{
+
+public class EinkaufDAO extends DAO{
 	private Statement stmt = null;
 	private ResultSet rs = null;
 	private Connection con = null;
@@ -19,7 +20,7 @@ public class EinkaufDAO{
 	public ArrayList<Einkauf> getEinkaeufe() throws EinkaufDAOLoadException{
 
 		try {
-		con = DAO.getDBCon();
+		con = getDBCon();
 		ArrayList<Einkauf> einkaufsListe = null;
 		String sqlStatement = "select * from einkauf";
 
@@ -38,7 +39,7 @@ public class EinkaufDAO{
 			}
 		rs.close();
 		stmt.close();
-		DAO.closeConnection(con);
+		closeConnection(con);
 		return einkaufsListe;
 		} catch (SQLException e) {
 			throw new EinkaufDAOLoadException();
@@ -47,7 +48,7 @@ public class EinkaufDAO{
 
 	public void saveEinkaeufe(ArrayList<Einkauf> einkaufsListe) throws EinkaufDAOSaveException{
 		try{
-		con = DAO.getDBCon();
+		con = getDBCon();
 		String sqlStatement = "select * from einkauf";
 		// Laden des ResultSets
 		stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
@@ -69,7 +70,7 @@ public class EinkaufDAO{
 			}
 			rs.close();
 			stmt.close();
-			DAO.closeConnection(con);
+			closeConnection(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new EinkaufDAOSaveException();

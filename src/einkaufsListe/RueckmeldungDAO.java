@@ -7,12 +7,13 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import main.DAO;
+
 import benutzer.Benutzer;
 
-import einstellungen.DAO;
 
 
-public class RueckmeldungDAO {
+public class RueckmeldungDAO extends DAO{
 	private Statement stmt = null;
 	private ResultSet rs = null;
 	private Connection con = null;
@@ -28,7 +29,7 @@ public class RueckmeldungDAO {
 	}
 	public void saveRueckmeldung(ArrayList<Rueckmeldung> rueckmeldung)throws RueckmeldungDAOSaveException{
 		try{
-		con = DAO.getDBCon();
+		con = getDBCon();
 		String sqlStatement = "insert into rueckmeldung values (DEFAULT,'"
 																+Benutzer.getUser()+"','"
 																+ new Timestamp(System.currentTimeMillis())+"')";
@@ -49,7 +50,7 @@ public class RueckmeldungDAO {
 		}
 			rs.close();
 			stmt.close();
-			DAO.closeConnection(con);
+			closeConnection(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RueckmeldungDAOSaveException();

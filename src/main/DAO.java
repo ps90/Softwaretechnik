@@ -1,4 +1,4 @@
-package einstellungen;
+package main;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class DAO {
 	
-	public static Connection getDBCon() throws SQLException {
+	public Connection getDBCon() throws SQLException {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException | IllegalAccessException
@@ -22,7 +22,7 @@ public class DAO {
 		return DriverManager.getConnection(url, user, passwd);
 		
 	}
-	public static void closeConnection(Connection con) throws SQLException{
+	public void closeConnection(Connection con) throws SQLException{
 		if(con != null){
 			con.close();
 		} 
