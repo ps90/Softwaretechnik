@@ -1,0 +1,31 @@
+CREATE TABLE `wgkasse`.`einkauf` (
+  `idEinkauf` INT NOT NULL AUTO_INCREMENT,
+  `prio` INT NOT NULL,
+  `artikel` VARCHAR(255) NOT NULL,
+  `einzukaufendeMenge` INT NOT NULL,
+  PRIMARY KEY (`idEinkauf`));
+
+  
+  
+  CREATE TABLE `wgkasse`.`rueckmeldung` (
+  `idRueckmeldung` INT NOT NULL AUTO_INCREMENT,
+  `benutzername` VARCHAR(255) NOT NULL,
+  `zeit` TIMESTAMP(6) NOT NULL,
+  PRIMARY KEY (`idRueckmeldung`));
+  
+  
+  
+  
+  CREATE TABLE `wgkasse`.`rueckmeldungposition` (
+  `idPos` INT NOT NULL AUTO_INCREMENT,
+  `rueckmeldungId` INT NOT NULL,
+  `artikel` VARCHAR(255) NOT NULL,
+  `menge` INT NOT NULL,
+  `preis` DECIMAL(19,2) NOT NULL,
+  PRIMARY KEY (`idPos`),
+  INDEX `rueckmeldungId_idx` (`rueckmeldungId` ASC),
+  CONSTRAINT `rueckmeldungId`
+    FOREIGN KEY (`rueckmeldungId`)
+    REFERENCES `wgkasse`.`rueckmeldung` (`idRueckmeldung`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
