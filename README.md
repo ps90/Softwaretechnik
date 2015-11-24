@@ -1,2 +1,2 @@
-# Softwaretechnik
+#Softwaretechnik
 Gruppe A
